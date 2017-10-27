@@ -9,9 +9,4 @@ public class Trap {
     public Trap(){
         //TODO
     }
-
-    public void draw() {
-        //TODO
-    }
-
 }

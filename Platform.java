@@ -1,8 +1,5 @@
 package runnerk;
 
-/**
- * @author masharun
- */
 public class Platform {
 
     private int width = 0;
