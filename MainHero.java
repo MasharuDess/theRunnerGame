@@ -25,7 +25,7 @@ public class MainHero {
     private final int width = 128;
     private final int height = 102;
 
-    public MainHero(){
+    public MainHero() {
 
         line = 0;
 
