@@ -9,7 +9,7 @@ public class Platform {
     private int height = 0;
     private int line = 0;
 
-    public Platform(int h, int w){
+    public Platform(int h, int w) {
         //TODO
     }
 
