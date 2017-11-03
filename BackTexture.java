@@ -10,21 +10,24 @@ public class BackTexture {
     private Image backTextureImage;
     private ImageView backTextureView;
 
-    public BackTexture(int w, int h) {
+    public BackTexture( int w, int h ) {
         width = w;
         height = h;
 
         backTextureImage = new Image(getClass().
-            getResourceAsStream("textures/RunnerBackground.png"));
-        backTextureView = new ImageView(backTextureImage);
+            getResourceAsStream( "textures/RunnerBackground.png" ));
+        backTextureView = new ImageView( backTextureImage );
 
-        backTextureView.setFitHeight(height);
-        backTextureView.setFitWidth(width);
+        backTextureView.setFitHeight( height );
+        backTextureView.setFitWidth( width );
 
-        RunnerK.root.getChildren().add(backTextureView);
+        RunnerK.root.getChildren().add( backTextureView );
+
+        //TODO
+        //Add Floor;
     }
-    
-    public void spin(){
+
+    public void spin() {
         //TODO
     }
 
