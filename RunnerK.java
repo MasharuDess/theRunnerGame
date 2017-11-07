@@ -18,20 +18,17 @@ public class RunnerK extends Application {
     }
 
      @Override
-    public void start( Stage primaryStage ) {
+    public void start( Stage primaryStage ) throws Exception {
 
         primaryStage.setTitle( "The Runner Game" );
         primaryStage.setScene( scene );
         primaryStage.show();
 
-        logic = new GameLogic();
-        System.out.println ( "check2" );
+        logic = new GameLogic( this );
+    }
 
-        if ( !logic.checkGameStarted ()) {
-            System.out.println ( "check1" );
-            System.exit( 0 );
-        }
-        
-        System.out.println ( "check3" );
+    @Override
+    public void stop() {
+        System.exit( 0 );
     }
 }

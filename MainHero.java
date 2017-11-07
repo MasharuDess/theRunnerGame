@@ -1,64 +1,73 @@
 package runnerk;
 
 import javafx.animation.Animation;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class MainHero extends Pane {
 
-    private boolean isAlive;
-    private Rectangle heroRectangle;
-
-    private int line;
-
+    private final int frameLines = 2;
+    private final int frameColumns = 4;
+    private final int width = 128;
+    private final int height = 102;
     private final Image heroImage = new Image
         ( getClass().getResourceAsStream( "textures/MainHero.png" ));
 
-    private ImageView heroView;
-
-    private final int frameLines = 2;
-    private final int frameColumns = 4;
-    private final int offsetX = 0;
-    private final int offsetY = 0;
-    private final int width = 128;
-    private final int height = 102;
-
-    private Point2D heroPoint;
+    private ImageView heroView = new ImageView( heroImage );
+    private Animation drawer;
+    private Animation attackDrawer;
+    private int jumpHeight;
+    private int line;
+    private boolean isAlive;
 
     public MainHero() {
-
+        jumpHeight = 565;
         line = 0;
         isAlive = true;
-        heroRectangle = new Rectangle( 0,0 );
-        heroView = new ImageView( heroImage );
-        heroView.setFitHeight( 40 );
-        heroView.setFitWidth( 40 );
-        heroView.setViewport( new Rectangle2D ( offsetX, offsetY, width, height ));
-        Animation drawer = new Drawer(heroView, Duration.millis( 400 ),
-            frameLines, frameColumns, offsetX, offsetY, width, height, 1 );
-
+        heroView.setFitHeight( height * 1.3 );
+        heroView.setFitWidth( width * 1.3 );
+        heroView.setLayoutX ( 50 );
+        heroView.setLayoutY ( jumpHeight );
+        drawer = new Drawer( heroView, Duration.millis( 400 ),
+            frameLines, frameColumns, 0, 0, width, height, 1 );
         drawer.setCycleCount( Animation.INDEFINITE );
         drawer.play();
-        getChildren().addAll (heroView, heroRectangle );
-
-        //TODO
+        RunnerK.root.getChildren().add ( heroView );
     }
 
-    public boolean attack() {
-        //TODO
-        return true;
+    public int attack( int attackFramesCount ) {
+        if (( attackFramesCount <= 11 ) || (( attackFramesCount > 23 ) && ( attackFramesCount <= 35 ))) {
+            attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, 0,
+            height * 2 , width, height, 1 );
+        } else if (( attackFramesCount > 11 ) && ( attackFramesCount <= 23 )) {
+            attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, width,
+            height * 2 , width, height, 1 );
+        }
+        if ( attackFramesCount < 36 ) {
+            attackDrawer.setCycleCount ( 1 );
+            attackDrawer.play();
+        } else if ( attackFramesCount == 36 ) {
+            drawer = new Drawer( heroView, Duration.millis( 400 ),
+                frameLines, frameColumns, 0, 0, width, height, 1 );
+            drawer.setCycleCount( Animation.INDEFINITE );
+            drawer.play ();
+        }
+        return ++attackFramesCount;
     }
 
-    public void jump() {
-        setTranslateY ( getTranslateY () + 50 );
+    public int jump( int jumpFramesCount, boolean isFalling ) {
+        if ( isFalling ) {
+            jumpHeight += jumpFramesCount - 19;
+        } else {
+            jumpHeight -= 20 - jumpFramesCount;
+        }
+        heroView.setLayoutY ( jumpHeight );
+        return ++jumpFramesCount;
     }
 
-    public void setIsAlive(boolean isAlive) {
+    public void setIsAlive( boolean isAlive ) {
         this.isAlive = isAlive;
     }
 
