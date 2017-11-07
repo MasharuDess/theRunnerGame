@@ -14,13 +14,12 @@ public class MainHero extends Pane {
     private final int height = 102;
     private final Image heroImage = new Image
         ( getClass().getResourceAsStream( "textures/MainHero.png" ));
-
-    private ImageView heroView = new ImageView( heroImage );
-    private Animation drawer;
-    private Animation attackDrawer;
     private int jumpHeight;
     private int line;
     private boolean isAlive;
+    private ImageView heroView = new ImageView( heroImage );
+    private Animation drawer;
+    private Animation attackDrawer;
 
     public MainHero() {
         jumpHeight = 565;

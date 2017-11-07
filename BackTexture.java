@@ -10,9 +10,10 @@ public class BackTexture {
     private final int width;
     private final int height;
     private final Image backTextureImage = new Image( getClass().
-            getResourceAsStream( "textures/RunnerBackground.png" ));
+        getResourceAsStream( "textures/RunnerBackground.png" ));
     private final ImageView backTextureView = new ImageView( backTextureImage );
-    private final Image floorImage = new Image( getClass().getResourceAsStream ( "textures/Floor.png" ));
+    private final Image floorImage = new Image( getClass().
+        getResourceAsStream ( "textures/Floor.png" ));
     private final ImageView floorView = new ImageView( floorImage );
     private final ImageView floorView2 = new ImageView( floorImage );
     private Animation drawer;
@@ -36,13 +37,12 @@ public class BackTexture {
     }
 
     public int spin( int floorOffset ) {
-        if ( floorOffset > (-width) ) {
+        if ( floorOffset > ( -width ) ) {
             floorView.setLayoutX ( floorOffset );
             floorView2.setLayoutX ( floorOffset + width );
-            floorOffset -= 5;
+            return ( floorOffset - 5 );
         } else {
-            floorOffset = 0;
+            return 0;
         }
-        return floorOffset;
     }
 }

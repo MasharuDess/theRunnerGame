@@ -12,14 +12,12 @@ public class RunnerK extends Application {
     public static Pane root = new Pane();
     public static Scene scene = new Scene( root, 1280, 720 );
 
-
     public static void main( String[] args ) {
        launch( args );
     }
 
      @Override
     public void start( Stage primaryStage ) throws Exception {
-
         primaryStage.setTitle( "The Runner Game" );
         primaryStage.setScene( scene );
         primaryStage.show();

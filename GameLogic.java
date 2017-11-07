@@ -4,11 +4,19 @@ import java.util.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.application.Application;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class GameLogic extends AnimationTimer {
 
     private boolean isGameStarted;
-
+    private boolean jump;
+    private boolean attack;
+    private int jumpFramesCount;
+    private int attackFramesCount;
+    private int spinOffset;
+    private Integer counterBuff;
     private Vector platforms;
     private Vector traps;
     private Vector enemies;
@@ -17,11 +25,7 @@ public class GameLogic extends AnimationTimer {
     private BackTexture backTexture;
     private KeyCode key;
     private Application main;
-    private boolean jump;
-    private boolean attack;
-    private int jumpFramesCount;
-    private int attackFramesCount;
-    private int spinOffset;
+    private Label counter;
 
     public boolean checkHeroDeath( int position, int line ) {
         // TODO
@@ -38,15 +42,24 @@ public class GameLogic extends AnimationTimer {
         return true;
     }
 
-   public GameLogic(Application main) {
-
+   public GameLogic( Application main ) {
        this.main = main;
        jumpFramesCount = 0;
        spinOffset = 0;
        jump = false;
        attack = false;
        isGameStarted = true;
+       counterBuff = 0;
        backTexture = new BackTexture( 1280, 720 );
+
+       counter = new Label( counterBuff.toString());
+       counter.setFont ( new Font( "Roboto", 50 ));
+       counter.setTextFill ( Color.web ( "#FFFFFF" ));
+       counter.setScaleX ( 1.2 );
+       counter.setScaleY ( 1.2 );
+       counter.setTranslateX ( 1000 );
+       RunnerK.root.getChildren().add( counter );
+
        mainHero = new MainHero();
        mainHero.setTranslateX ( 0 );
        mainHero.setTranslateY ( 500 );
@@ -68,7 +81,7 @@ public class GameLogic extends AnimationTimer {
                     this.main.stop();
                 }
                 catch( Exception exc ) {
-                    System.out.println ( exc );
+                    System.out.println ( exc ); //TODO
                 }
             }
             if ( event.getCode () == key.D ) {
@@ -79,6 +92,11 @@ public class GameLogic extends AnimationTimer {
 
    @Override
     public void handle( long now ) {
+        //Counter handle
+        if ( now % 2 == 0 ) {
+            counterBuff++;
+        }
+        counter.setText( counterBuff.toString());
 
         //Spin handle
         spinOffset = backTexture.spin( spinOffset );
@@ -103,6 +121,7 @@ public class GameLogic extends AnimationTimer {
                 jumpFramesCount = 0;
             }
         }
+        
         //Check is Alive Handle
         if (!( mainHero.getIsAlive ())) {
             stop();
