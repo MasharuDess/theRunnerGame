@@ -1,42 +1,45 @@
 package runnerk;
 
 import javafx.animation.Animation;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class Enemy {
+public class Enemy extends Opponent {
 
-    private boolean isAlive;
-
-    private int line;
-
-    private final Image enemyImage = new Image
-        ( getClass().getResourceAsStream( "textures/Enemy.png" )); //Add Texture
-
-    private ImageView enemyView;
-
-    private final int frameLines = 1;
-    private final int frameColumns = 4;
-    private final int offsetX = 0;
-    private final int offsetY = 0;
-    private final int width = 128;
-    private final int height = 128;
-
-    public Enemy() {
-
-        //TODO
-        //Add Line generator
-
-        isAlive = true;
-
+    public Enemy( int line ) {
+        enemyImage = new Image
+        ( getClass().getResourceAsStream( "textures/BiggerEnemy.png" ));
         enemyView = new ImageView( enemyImage );
-        enemyView.setViewport (new Rectangle2D( offsetX, offsetY, width, height ));
-
-        RunnerK.root.getChildren().add( enemyView );
-
-        //TODO
-        //Add Circle Enemy Back
+        frameLines = 3;
+        frameColumns = 3;
+        width = 256;
+        height = 256;
+        initSize();
+        this.line = line;
+        enemyView.setFitHeight( height * 0.65 );
+        enemyView.setFitWidth( width * 0.65 );
+        drawer = new Drawer( enemyView, Duration.millis( 450 ),
+            frameColumns, frameLines, 0, 0, width, height, 0 );
+        drawer.setCycleCount( Animation.INDEFINITE );
+        drawer.play();
+        RunnerK.root.getChildren().add ( enemyView );
+        
+        switch ( line ) {
+            case 0: layout = ( int ) ( 680 - ( height * 0.65 ));
+                break;
+            case 1: layout = ( int ) ( 520 - ( height * 0.65 ));
+                break;
+            case 2: layout = ( int ) ( 340 - ( height * 0.65 ));
+                break;
+            case 3: layout = ( int ) ( 180 - ( height * 0.65 ));
+        }
+        enemyOffset = 1280 + width;
+        enemyView.setLayoutY ( layout );
+        enemyView.setLayoutX ( enemyOffset );
+    }
+    
+    private void initSize() {
+        setSize();
     }
 }

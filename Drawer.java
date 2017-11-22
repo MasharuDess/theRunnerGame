@@ -12,13 +12,13 @@ public class Drawer extends Transition {
     private final int lines;
     private final int offsetX;
     private final int offsetY;
-    private final int width;
     private final int height;
+    private final int width;
     private final int minus;
 
     public Drawer( ImageView imageView,
             Duration duration,
-            int lines, int columns,
+            int columns, int lines,
             int offsetX, int offsetY,
             int width, int height,
             int minus ) {
@@ -37,9 +37,9 @@ public class Drawer extends Transition {
 
     @Override
     protected void interpolate( double frac ) {
-        int index = Math.min(( int ) Math.floor( frac * lines ), lines - minus );
-        int x = ( index % columns ) * width + offsetX;
-        int y = ( index / columns ) * height + offsetY;
+        int index = Math.min(( int ) Math.floor( frac * columns ), columns - minus );
+        int x = ( index % lines ) * width + offsetX;
+        int y = ( index / lines ) * height + offsetY;
 
         imageView.setViewport( new Rectangle2D( x, y, width, height ));
     }

@@ -3,7 +3,6 @@ package runnerk;
 import javafx.animation.Animation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 public class BackTexture {
 
@@ -17,6 +16,7 @@ public class BackTexture {
     private final ImageView floorView = new ImageView( floorImage );
     private final ImageView floorView2 = new ImageView( floorImage );
     private Animation drawer;
+    private final int floorHeight = 670;
 
     public BackTexture( int width, int height ) {
         this.width = width;
@@ -27,11 +27,11 @@ public class BackTexture {
 
         floorView.setFitHeight( 50 );
         floorView.setFitWidth( width * 1.3 );
-        floorView.setLayoutY ( 670 );
+        floorView.setLayoutY ( floorHeight );
         floorView.setLayoutX ( 0 );
         floorView2.setFitHeight( 50 );
         floorView2.setFitWidth( width * 1.3 );
-        floorView2.setLayoutY ( 670 );
+        floorView2.setLayoutY ( floorHeight );
         floorView2.setLayoutX ( 1280 );
         RunnerK.root.getChildren().addAll( floorView, floorView2 );
     }
@@ -44,5 +44,9 @@ public class BackTexture {
         } else {
             return 0;
         }
+    }
+    
+    public int getHeight(){
+        return floorHeight;
     }
 }

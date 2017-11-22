@@ -1,38 +1,57 @@
 package runnerk;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Platform {
-
-    private boolean isCreated;
-
-    private int line;
-
+    private final int width;
+    private final int height;
+    private final int line;
     private final Image platformImage = new Image
-        ( getClass().getResourceAsStream ( "textures/Platform.png" )); //set image
-
+        ( getClass().getResourceAsStream ( "textures/Platform.png" ));
     private ImageView platformView;
+    private int platformOffset;
+    private int layout;
 
-    private int width;
-    private int height;
-
-    public Platform( int w, int h ) {
-
-        width = w;
-        height = h;
-
-        //TODO
-        //Add line generator
-
+    public Platform( int width, int height, int line ) {
+        this.width = width;
+        this.height = height;
+        this.line = line;
         platformView = new ImageView( platformImage );
-        platformView.setViewport( new Rectangle2D ( 0, 0, width, height ));
-
         RunnerK.root.getChildren().add( platformView );
+        platformView.setFitHeight( height );
+        platformView.setFitWidth( width );
+        switch ( line ) {
+            case 1: layout = 490;
+                break;
+            case 2: layout = 320;
+                break;
+            case 3: layout = 150;
+        }
+        platformView.setLayoutY( layout );
+        platformOffset = 1280 + width;
+        platformView.setLayoutX ( platformOffset );
+    }
 
-
-        //TODO
-        //Add Rect Platform Back
+    public int setOffset() {
+        platformOffset -= 5;
+        platformView.setLayoutX( platformOffset );
+        return platformOffset;
+    }
+    
+    public int getOffset() {
+        return platformOffset;
+    }
+    
+    public int getLine() {
+        return line;
+    }
+    
+    public int getLayout() {
+        return layout;
+    }
+    
+    public int getWidth() {
+        return width;
     }
 }
