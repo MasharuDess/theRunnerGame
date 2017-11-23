@@ -24,7 +24,7 @@ public class Enemy extends Opponent {
         drawer.setCycleCount( Animation.INDEFINITE );
         drawer.play();
         RunnerK.root.getChildren().add ( enemyView );
-        
+
         switch ( line ) {
             case 0: layout = ( int ) ( 680 - ( height * 0.65 ));
                 break;
@@ -34,11 +34,11 @@ public class Enemy extends Opponent {
                 break;
             case 3: layout = ( int ) ( 180 - ( height * 0.65 ));
         }
-        enemyOffset = 1280 + width;
+        enemyOffset = ( int ) ( 1280 + ( width * 1.2 ));
         enemyView.setLayoutY ( layout );
         enemyView.setLayoutX ( enemyOffset );
     }
-    
+
     private void initSize() {
         setSize();
     }

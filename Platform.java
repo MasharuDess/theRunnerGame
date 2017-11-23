@@ -33,8 +33,12 @@ public class Platform {
         platformView.setLayoutX ( platformOffset );
     }
 
-    public int setOffset() {
-        platformOffset -= 5;
+    public int setOffset( double factor ) {
+        if ( platformOffset <= 0 ) {
+            platformOffset -= ( int ) (( 5 * factor ) + 1 );
+        } else {
+            platformOffset -= ( 5 * factor );
+        }
         platformView.setLayoutX( platformOffset );
         return platformOffset;
     }

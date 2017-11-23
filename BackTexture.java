@@ -36,11 +36,12 @@ public class BackTexture {
         RunnerK.root.getChildren().addAll( floorView, floorView2 );
     }
 
-    public int spin( int floorOffset ) {
-        if ( floorOffset > ( -width ) ) {
+    public int spin( int floorOffset, double factor ) {
+        if ( floorOffset > ( -width )) {
+            floorOffset -= ( int ) (( 5 * factor ) + 1 );
             floorView.setLayoutX ( floorOffset );
             floorView2.setLayoutX ( floorOffset + width );
-            return ( floorOffset - 5 );
+            return floorOffset;
         } else {
             return 0;
         }

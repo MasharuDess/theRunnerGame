@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class JumperEnemy extends Opponent {
-    
+
     public JumperEnemy( int line ) {
         enemyImage = new Image
         ( getClass().getResourceAsStream( "textures/JumperEnemy.png" ));
@@ -24,22 +24,21 @@ public class JumperEnemy extends Opponent {
         drawer.setCycleCount( Animation.INDEFINITE );
         drawer.play();
         RunnerK.root.getChildren().add ( enemyView );
-        
+
         switch ( line ) {
             case 0: layout =  680 - height;
                 break;
-            case 1: layout =  520 - height;
+            case 1: layout =  510 - height;
                 break;
-            case 2: layout =  360 - height;
+            case 2: layout =  340 - height;
                 break;
-            case 3: layout =  180 - height;
+            case 3: layout =  170 - height;
         }
-        System.out.println( line );
-        enemyOffset = 1280 + width;
+        enemyOffset = 1280 + ( width * 2 );
         enemyView.setLayoutY ( layout );
         enemyView.setLayoutX ( enemyOffset );
     }
-    
+
     private void initSize() {
         setSize();
     }

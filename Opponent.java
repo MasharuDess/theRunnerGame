@@ -17,8 +17,12 @@ abstract public class Opponent extends Pane{
     protected int layout;
     protected Animation drawer;
     
-    public int setOffset() {
-        enemyOffset -= 5;
+    public int setOffset( double factor ) {
+        if ( enemyOffset <= 0 ) {
+            enemyOffset -= ( int ) (( 5 * factor ) + 1 );
+        } else {
+            enemyOffset -= ( 5 * factor );
+        }
         enemyView.setLayoutX( enemyOffset );
         return enemyOffset;
     }

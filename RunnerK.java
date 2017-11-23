@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class RunnerK extends Application {
 
     private GameLogic logic;
-    
+
     public static Pane root = new Pane();
     public static Scene scene = new Scene( root, 1280, 720 );
 
@@ -16,17 +16,15 @@ public class RunnerK extends Application {
        launch( args );
     }
 
-     @Override
+    @Override
     public void start( Stage primaryStage ) throws Exception {
         primaryStage.setTitle( "The Runner Game" );
         primaryStage.setScene( scene );
         primaryStage.show();
-        
+
         logic = new GameLogic( this );
-        
-        //TODO
-        
     }
+
 
     @Override
     public void stop() {
