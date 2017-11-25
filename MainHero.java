@@ -16,7 +16,7 @@ public class MainHero extends Pane {
     private final Image heroImage = new Image
         ( getClass().getResourceAsStream( "textures/MainHero.png" ));
     private final ImageView heroView = new ImageView( heroImage );
-    
+
     private int jumpHeight;
     private int line;
     private boolean isAlive;
@@ -39,54 +39,72 @@ public class MainHero extends Pane {
         drawer.play();
         RunnerK.root.getChildren().add ( heroView );
     }
-    
-    public void run () {
+
+    public void run() {
+        drawer.stop();
         drawer = new Drawer( heroView, Duration.millis( 400 ),
             frameLines, frameColumns, 0, 0, width, height, 1 );
         drawer.setCycleCount( Animation.INDEFINITE );
         drawer.play();
     }
-    
+
     public int death( int deathFramesCount ) {
-        if ( deathFramesCount <= 11 ) {
-            deathDrawer = new Drawer ( heroView, Duration.INDEFINITE, 1, 1, width, 
+        if ( deathFramesCount == 0 ) {
+            deathDrawer = new Drawer ( heroView, Duration.INDEFINITE, 1, 1, width,
             height * 3, width, height, 1 );
-        } else if ( deathFramesCount > 11 ) {
-            deathDrawer = new Drawer ( heroView, Duration.INDEFINITE, 1, 1, 0, 
+            deathDrawer.setCycleCount( Animation.INDEFINITE );
+            deathDrawer.play();
+        } else if ( deathFramesCount == 11 ) {
+            deathDrawer.stop();
+            deathDrawer = new Drawer ( heroView, Duration.INDEFINITE, 1, 1, 0,
             height * 3, width, height, 1 );
+            deathDrawer.setCycleCount( Animation.INDEFINITE );
+            deathDrawer.play();
+            return 11;
         }
-        deathDrawer.setCycleCount( 1 );
-        deathDrawer.play();
         return ++deathFramesCount;
     }
-    
+
     public int attack( int attackFramesCount ) {
-        if ( drawer != null ) {
-            drawer = null;
-        }
-        if (( attackFramesCount <= 11 ) || (( attackFramesCount > 23 ) &&
-                ( attackFramesCount <= 35 ))) {
-            attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, 0,
-            height * 2 , width, height, 1 );
-        } else if (( attackFramesCount > 11 ) && ( attackFramesCount <= 23 )) {
-            attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, width,
-            height * 2 , width, height, 1 );
-        }
-        if ( attackFramesCount < 36 ) {
-            attackDrawer.setCycleCount ( 1 );
-            attackDrawer.play();
-        } else if ( attackFramesCount == 36 ) {
-            attackDrawer = null;
-            drawer = new Drawer( heroView, Duration.millis( 400 ),
-                frameLines, frameColumns, 0, 0, width, height, 1 );
-            drawer.setCycleCount( Animation.INDEFINITE );
-            drawer.play ();
+        switch ( attackFramesCount ) {
+            case 0:
+                drawer.stop ();
+                drawer = null;
+                attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, 0,
+                    height * 2 , width, height, 1 );
+                attackDrawer.setCycleCount ( Animation.INDEFINITE );
+                attackDrawer.play();
+                break;
+            case 12:
+                attackDrawer.stop();
+                attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, width,
+                    height * 2 , width, height, 1 );
+                attackDrawer.setCycleCount ( Animation.INDEFINITE );
+                attackDrawer.play();
+                break;
+            case 24:
+                attackDrawer.stop();
+                attackDrawer = new Drawer( heroView, Duration.INDEFINITE, 1, 1, 0,
+                    height * 2 , width, height, 1 );
+                attackDrawer.setCycleCount ( Animation.INDEFINITE );
+                attackDrawer.play();
+                break;
+            case 36:
+                attackDrawer.stop();
+                attackDrawer = null;
+                drawer = new Drawer( heroView, Duration.millis( 400 ),
+                    frameLines, frameColumns, 0, 0, width, height, 1 );
+                drawer.setCycleCount( Animation.INDEFINITE );
+                drawer.play ();
+                break;
+            default:
+                break;
         }
         return ++attackFramesCount;
     }
 
     public int jump( int jumpFramesCount, int fallState ) {
-        switch (fallState) {
+        switch ( fallState ) {
             case 1:
                 jumpHeight += jumpFramesCount - 19;
                 break;
@@ -130,11 +148,11 @@ public class MainHero extends Pane {
     public boolean getIsAlive() {
         return isAlive;
     }
-    
+
     public int getDrawingPoint() {
         return drawingPoint;
     }
-    
+
     private void setSize() {
         setWidth( width );
         setHeight( height );

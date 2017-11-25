@@ -34,11 +34,11 @@ public class GameLogic extends AnimationTimer {
     private Label counter;
     private Label startLabel;
     private DropShadow shadow = new DropShadow();
-
+    
     public GameLogic ( Application main ) {
         this.main = main;
         init();
-
+        
         shadow.setOffsetY( 3.0f );
         shadow.setColor( Color.color( 0.4f, 0.4f, 0.4f ));
 
@@ -84,6 +84,10 @@ public class GameLogic extends AnimationTimer {
 
     private void init() {
         RunnerK.root.getChildren().clear();
+        jumpFramesCount = 0;
+        attackFramesCount = 0;
+        deathFramesCount = 0;
+        fallFramesCount = 0;
         fall = false;
         jump = false;
         fallDown = false;
@@ -135,8 +139,9 @@ public class GameLogic extends AnimationTimer {
 
                 if (( mainHero.getJumpHeight() <= buff.getLayout()) &&
                         ( jumpFramesCount == 20 ) && ( buff.getOffset() <=
-                        ( mainHero.getDrawingPoint() + mainHero.getWidth() )) &&
-                        ( buff.getOffset() + buff.getWidth() - mainHero.getWidth()
+                        ( mainHero.getDrawingPoint() + mainHero.getWidth() + 
+                        ( mainHero.getWidth() / 2))) && ( buff.getOffset() +
+                        buff.getWidth() - mainHero.getWidth()
                         >= mainHero.getDrawingPoint() )) {
 
                     jumpFramesCount = 38;
@@ -187,6 +192,7 @@ public class GameLogic extends AnimationTimer {
         }
 
         if ( deleteFlag ) {
+            platforms.elementAt( 0 ).clear();
             platforms.remove ( 0 );
         }
 
@@ -233,8 +239,10 @@ public class GameLogic extends AnimationTimer {
         }
 
         if ( deleteFlag ) {
+            enemies.elementAt( 0 ).clear();
             enemies.remove( 0 );
         } else if ( killedBuff != -1 ) {
+            enemies.elementAt( killedBuff - 1 ).clear();
             enemies.remove( killedBuff - 1 );
         }
     }
@@ -257,6 +265,7 @@ public class GameLogic extends AnimationTimer {
         }
 
         if ( deleteFlag ) {
+            traps.elementAt( 0 ).clear();
             traps.remove( 0 );
         }
     }
@@ -288,8 +297,10 @@ public class GameLogic extends AnimationTimer {
         }
 
         if ( deleteFlag ) {
+            jEnemies.elementAt( 0 ).clear();
             jEnemies.remove( 0 );
         } else if ( killedBuff != -1 ) {
+            jEnemies.elementAt( killedBuff - 1 ).clear();
             jEnemies.remove( killedBuff - 1 );
             factor += 0.002;
         }

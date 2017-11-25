@@ -21,7 +21,7 @@ public class RunnerK extends Application {
         primaryStage.setTitle( "The Runner Game" );
         primaryStage.setScene( scene );
         primaryStage.show();
-
+        
         logic = new GameLogic( this );
     }
 

@@ -7,8 +7,7 @@ public class Platform {
     private final int width;
     private final int height;
     private final int line;
-    private final Image platformImage = new Image
-        ( getClass().getResourceAsStream ( "textures/Platform.png" ));
+    private Image platformImage;
     private ImageView platformView;
     private int platformOffset;
     private int layout;
@@ -17,6 +16,8 @@ public class Platform {
         this.width = width;
         this.height = height;
         this.line = line;
+        platformImage = new Image
+            ( getClass().getResourceAsStream ( "textures/Platform.png" ));
         platformView = new ImageView( platformImage );
         RunnerK.root.getChildren().add( platformView );
         platformView.setFitHeight( height );
@@ -42,20 +43,26 @@ public class Platform {
         platformView.setLayoutX( platformOffset );
         return platformOffset;
     }
-    
+
     public int getOffset() {
         return platformOffset;
     }
-    
+
     public int getLine() {
         return line;
     }
-    
+
     public int getLayout() {
         return layout;
     }
-    
+
     public int getWidth() {
         return width;
+    }
+
+    public void clear() {
+        RunnerK.root.getChildren().remove( platformView );
+        platformView = null;
+        platformImage = null;
     }
 }

@@ -42,4 +42,12 @@ public class JumperEnemy extends Opponent {
     private void initSize() {
         setSize();
     }
+
+    public void clear() {
+        drawer.stop ();
+        RunnerK.root.getChildren().remove( enemyView );
+        enemyView = null;
+        enemyImage = null;
+        drawer = null;
+    }
 }

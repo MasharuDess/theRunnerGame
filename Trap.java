@@ -9,7 +9,7 @@ public class Trap extends Opponent {
 
     public Trap( int line ) {
         enemyImage = new Image
-        ( getClass().getResourceAsStream( "textures/Trap.png" ));
+            ( getClass().getResourceAsStream( "textures/Trap.png" ));
         enemyView = new ImageView( enemyImage );
         frameLines = 4;
         frameColumns = 2;
@@ -26,13 +26,13 @@ public class Trap extends Opponent {
         RunnerK.root.getChildren().add ( enemyView );
 
         switch ( line ) {
-            case 0: layout =  687 - height;
+            case 0: layout =  685 - height;
                 break;
-            case 1: layout =  517 - height;
+            case 1: layout =  515 - height;
                 break;
-            case 2: layout =  347 - height;
+            case 2: layout =  345 - height;
                 break;
-            case 3: layout =  177 - height;
+            case 3: layout =  175 - height;
         }
         enemyOffset = 1280 + ( width * 2 );
         enemyView.setLayoutY ( layout );
@@ -42,5 +42,13 @@ public class Trap extends Opponent {
 
     private void initSize() {
         setSize();
+    }
+
+    public void clear() {
+        drawer.stop ();
+        RunnerK.root.getChildren().remove( enemyView );
+        enemyView = null;
+        enemyImage = null;
+        drawer = null;
     }
 }
