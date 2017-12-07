@@ -21,6 +21,7 @@ public class GameLogic extends AnimationTimer {
     private int deathFramesCount;
     private int fallFramesCount;
     private int spinOffset;
+    private int coolDown;
     private double factor;
     private Integer counterBuff;
     private Vector<Platform> platforms;
@@ -58,7 +59,7 @@ public class GameLogic extends AnimationTimer {
                 RunnerK.root.getChildren().remove( startLabel );
                 startLabel = null;
             } else if ( isGameStarted ) {
-                if ( event.getCode () == key.X ) {
+                if (( event.getCode () == key.X ) && ( coolDown == 0 )) {
                     jump = true;
                 }
                 if ( event.getCode () == key.Z ) {
@@ -88,6 +89,7 @@ public class GameLogic extends AnimationTimer {
         attackFramesCount = 0;
         deathFramesCount = 0;
         fallFramesCount = 0;
+        coolDown = 0;
         fall = false;
         jump = false;
         fallDown = false;
@@ -127,6 +129,7 @@ public class GameLogic extends AnimationTimer {
             } else if ( jumpFramesCount == 40 ) {
                 jump = false;
                 jumpFramesCount = 0;
+                coolDown = 3;
             }
         }
     }
@@ -195,15 +198,22 @@ public class GameLogic extends AnimationTimer {
             platforms.elementAt( 0 ).clear();
             platforms.remove ( 0 );
         }
-
+        
+        
+        
         if (( !jump ) && ( fall ) && ( mainHero.getLine() != 0 ) && ( !fallDown )) {
-            jumpFramesCount = 0;
             fallDown = true;
         } else if ( !fall ) {
             fallDown = false;
             fallFramesCount = jumpFramesCount;
         }
-
+        
+        if (( fall ) && ( jumpFramesCount == 40 ) && ( fallFramesCount == 0 )) {
+            fallFramesCount = jumpFramesCount;   
+            jump = false;
+            jumpFramesCount = 0;
+        }
+        
         if (( fallDown ) && ( fall )) {
             jump = false;
             jumpFramesCount = 0;
@@ -352,7 +362,11 @@ public class GameLogic extends AnimationTimer {
                     attackFramesCount = 0;
                 }
             }
-
+            
+            if ( coolDown > 0 ) {
+                coolDown--;
+            }
+            
             //Jump handle
             onJump();
         } else {

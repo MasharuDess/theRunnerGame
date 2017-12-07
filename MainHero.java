@@ -60,6 +60,7 @@ public class MainHero extends Pane {
             height * 3, width, height, 1 );
             deathDrawer.setCycleCount( Animation.INDEFINITE );
             deathDrawer.play();
+            heroView.setLayoutY( jumpHeight + 10 );
             return 11;
         }
         return ++deathFramesCount;
