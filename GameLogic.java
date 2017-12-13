@@ -9,6 +9,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.effect.DropShadow;
 
+/**
+ * <h1>Класс игровой логики</h1>
+ * <p>Отвечает за все происходящее в игре: Спавн, проверки ...</p>
+ *
+ * @author Masharun
+ * @version 1.2
+ */
 public class GameLogic extends AnimationTimer {
 
     private boolean fall;
@@ -34,12 +41,21 @@ public class GameLogic extends AnimationTimer {
     private Application main;
     private Label counter;
     private Label startLabel;
-    private DropShadow shadow = new DropShadow();
-    
+    private DropShadow shadow;
+
+    /**
+     * <p>Конструктор класса GameLogic</p>
+     * <p>В конструкторе создается начальный лейбл, производится
+     * инициализация полей объекта.Также здесь находится событие,
+     * отвечающиее за работу с вводом. </p>
+     *
+     * @param main Ссылка на объект основного класса RunnerK.
+     */
     public GameLogic ( Application main ) {
         this.main = main;
         init();
-        
+
+        shadow = new DropShadow();
         shadow.setOffsetY( 3.0f );
         shadow.setColor( Color.color( 0.4f, 0.4f, 0.4f ));
 
@@ -142,7 +158,7 @@ public class GameLogic extends AnimationTimer {
 
                 if (( mainHero.getJumpHeight() <= buff.getLayout()) &&
                         ( jumpFramesCount == 20 ) && ( buff.getOffset() <=
-                        ( mainHero.getDrawingPoint() + mainHero.getWidth() + 
+                        ( mainHero.getDrawingPoint() + mainHero.getWidth() +
                         ( mainHero.getWidth() / 2))) && ( buff.getOffset() +
                         buff.getWidth() - mainHero.getWidth()
                         >= mainHero.getDrawingPoint() )) {
@@ -198,22 +214,22 @@ public class GameLogic extends AnimationTimer {
             platforms.elementAt( 0 ).clear();
             platforms.remove ( 0 );
         }
-        
-        
-        
+
+
+
         if (( !jump ) && ( fall ) && ( mainHero.getLine() != 0 ) && ( !fallDown )) {
             fallDown = true;
         } else if ( !fall ) {
             fallDown = false;
             fallFramesCount = jumpFramesCount;
         }
-        
+
         if (( fall ) && ( jumpFramesCount == 40 ) && ( fallFramesCount == 0 )) {
-            fallFramesCount = jumpFramesCount;   
+            fallFramesCount = jumpFramesCount;
             jump = false;
             jumpFramesCount = 0;
         }
-        
+
         if (( fallDown ) && ( fall )) {
             jump = false;
             jumpFramesCount = 0;
@@ -331,6 +347,11 @@ public class GameLogic extends AnimationTimer {
         }
     }
 
+    /**
+     * <p>Метод, отвечающи за вызов нужных функций.Вызывается каждый тик игр.</p>
+     *
+     * @param now Количество тиков с запуска игры.
+     */
     @Override
     public void handle ( long now ) {
 
@@ -362,11 +383,11 @@ public class GameLogic extends AnimationTimer {
                     attackFramesCount = 0;
                 }
             }
-            
+
             if ( coolDown > 0 ) {
                 coolDown--;
             }
-            
+
             //Jump handle
             onJump();
         } else {

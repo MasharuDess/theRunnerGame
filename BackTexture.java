@@ -4,6 +4,12 @@ import javafx.animation.Animation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * <h1>Класс задних текстур.</h1>
+ *
+ * @author Masharun
+ * @version 1.2
+ */
 public class BackTexture {
 
     private final int width;
@@ -18,6 +24,13 @@ public class BackTexture {
     private Animation drawer;
     private final int floorHeight = 670;
 
+    /**
+     * <p>Конструктор фона и пола. Здесь проиходит
+     * постановка текстур в нужные места</p>
+     *
+     * @param width Ширина фона.
+     * @param height Высота фона.
+     */
     public BackTexture( int width, int height ) {
         this.width = width;
         this.height = height;
@@ -36,6 +49,13 @@ public class BackTexture {
         RunnerK.root.getChildren().addAll( floorView, floorView2 );
     }
 
+    /**
+     * <p>Сдвиг пола и буфферного пола.Текстуры заменяют друг друга.</p>
+     *
+     * @param floorOffset Число, на которое сдвигается пол.
+     * @param factor Скорость движения пола.
+     * @return Возвращает число, на которое пол сдвинулся.
+     */
     public int spin( int floorOffset, double factor ) {
         if ( floorOffset > ( -width )) {
             floorOffset -= ( int ) (( 5 * factor ) + 1 );
@@ -46,7 +66,11 @@ public class BackTexture {
             return 0;
         }
     }
-    
+
+    /**
+     *
+     * @return Возвращает высоту пола.
+     */
     public int getHeight(){
         return floorHeight;
     }

@@ -5,8 +5,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ * <h1>Класс ловушки.</h1>
+ * <p>Наследуется от абстрактоного класса Opponent</p>
+ *
+ * @author Masharun
+ * @version 1.2
+ */
 public class Trap extends Opponent {
 
+    /**
+     * <p>Конструктор ловушки.Здесь создается все
+     * необходимое для ее функционирования.</p>
+     * @param line Линия, на которой находится ловушка.
+     */
     public Trap( int line ) {
         enemyImage = new Image
             ( getClass().getResourceAsStream( "textures/Trap.png" ));
@@ -44,6 +56,9 @@ public class Trap extends Opponent {
         setSize();
     }
 
+    /**
+     * <p>Очистка всех полей ловушки.</p>
+     */
     public void clear() {
         drawer.stop ();
         RunnerK.root.getChildren().remove( enemyView );

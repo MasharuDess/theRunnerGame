@@ -6,6 +6,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+/**
+ * <h1>Класс главного героя.</h1>
+ *
+ * @author Masharun
+ * @version 1.2
+ */
 public class MainHero extends Pane {
 
     private final int frameLines = 2;
@@ -16,7 +22,6 @@ public class MainHero extends Pane {
     private final Image heroImage = new Image
         ( getClass().getResourceAsStream( "textures/MainHero.png" ));
     private final ImageView heroView = new ImageView( heroImage );
-
     private int jumpHeight;
     private int line;
     private boolean isAlive;
@@ -24,6 +29,10 @@ public class MainHero extends Pane {
     private Animation attackDrawer;
     private Animation deathDrawer;
 
+    /**
+     * <p>Конструктор главного героя. Здесь происходит
+     * создание и постановка героя в стоячее положение.</p>
+     */
     public MainHero() {
         setSize();
         jumpHeight = 560;
@@ -40,6 +49,9 @@ public class MainHero extends Pane {
         RunnerK.root.getChildren().add ( heroView );
     }
 
+    /**
+     * <p>Смена анимации героя на бег.</p>
+     */
     public void run() {
         drawer.stop();
         drawer = new Drawer( heroView, Duration.millis( 400 ),
@@ -48,6 +60,12 @@ public class MainHero extends Pane {
         drawer.play();
     }
 
+    /**
+     * <p>Анимирование смерти главного героя.</p>
+     *
+     * @param deathFramesCount Количество прошедших кадров смерти героя.
+     * @return Увеличенное или максимальное количество кадров смерти героя.
+     */
     public int death( int deathFramesCount ) {
         if ( deathFramesCount == 0 ) {
             deathDrawer = new Drawer ( heroView, Duration.INDEFINITE, 1, 1, width,
@@ -66,6 +84,12 @@ public class MainHero extends Pane {
         return ++deathFramesCount;
     }
 
+    /**
+     * <p>Анимирование атаки главного героя.</p>
+     *
+     * @param attackFramesCount Количество прошедших кадров атаки героя.
+     * @return Увеличенное количество кадров атаки героя.
+     */
     public int attack( int attackFramesCount ) {
         switch ( attackFramesCount ) {
             case 0:
@@ -104,6 +128,13 @@ public class MainHero extends Pane {
         return ++attackFramesCount;
     }
 
+    /**
+     * <p>Метод производит прыжок героя путем смены его координат</p>
+     *
+     * @param jumpFramesCount Количество прошедших кадров прыжка героя.
+     * @param fallState Флаг возвышения или падения героя.
+     * @return Увеличенное количество кадров прыжка героя.
+     */
     public int jump( int jumpFramesCount, int fallState ) {
         switch ( fallState ) {
             case 1:
@@ -119,41 +150,74 @@ public class MainHero extends Pane {
         return ++jumpFramesCount;
     }
 
+    /**
+     * <p>Изменение координат для падения.</p>
+     *
+     * @param jumpFramesCount Количество прошедших кадров прыжка героя.
+     * @return Увеличенное количество кадров прыжка героя.
+     */
     public int fall ( int jumpFramesCount ) {
         jumpHeight += jumpFramesCount;
         heroView.setLayoutY ( jumpHeight );
         return ++jumpFramesCount;
     }
 
+    /**
+     * @return Возвращает линию, на которой находится герой.
+     */
     public int getLine() {
         return line;
     }
 
+    /**
+     * <p>Изменяет линию.</p>
+     *
+     * @param line Линия, на которой находится герой.
+     */
     public void setLine( int line ) {
         this.line = line;
     }
 
+    /**
+     * @return Возвращает высоту прыжка.
+     */
     public int getJumpHeight() {
         return jumpHeight;
     }
 
+    /**
+     * <p>Устанавливает флаг жизни героя.</p>
+     *
+     * @param isAlive Флаг жизни героя.
+     */
     public void setIsAlive( boolean isAlive ) {
         this.isAlive = isAlive;
     }
 
+    /**
+     * <p>Изменяет положение героя по Y.</p>
+     *
+     * @param layout Новое положение героя по Y.
+     */
     public void setLayout( int layout ) {
         heroView.setLayoutY( layout );
         jumpHeight = layout;
     }
 
+    /**
+     * @return Вощвращает флаг жизни героя.
+     */
     public boolean getIsAlive() {
         return isAlive;
     }
 
+    /**
+     * @return Возвращает левую точку героя.
+     */
     public int getDrawingPoint() {
         return drawingPoint;
     }
-
+    
     private void setSize() {
         setWidth( width );
         setHeight( height );

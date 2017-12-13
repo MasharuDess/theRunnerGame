@@ -5,8 +5,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+/**
+ * <h1>Класс прыгающего противника.</h1>
+ * <p>Наследуется от абстрактоного класса Opponent</p>
+ *
+ * @author Masharun
+ * @version 1.2
+ */
 public class JumperEnemy extends Opponent {
 
+    /**
+     * <p>Конструктор прыгающего противника.Здесь создается все
+     * необходимое для его функционирования.</p>
+     * @param line Линия, на которой находится прыгающий противник.
+     */
     public JumperEnemy( int line ) {
         enemyImage = new Image
         ( getClass().getResourceAsStream( "textures/JumperEnemy.png" ));
@@ -43,6 +55,9 @@ public class JumperEnemy extends Opponent {
         setSize();
     }
 
+    /**
+     * <p>Очистка всех полей прыгающего противника.</p>
+     */
     public void clear() {
         drawer.stop ();
         RunnerK.root.getChildren().remove( enemyView );

@@ -5,6 +5,12 @@ import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 
+/**
+ * <h1>Класс, отвечающий за отрисовку анимации объектов.</h1>
+ *
+ * @author Masharun
+ * @version 1.2
+ */
 public class Drawer extends Transition {
 
     private final ImageView imageView;
@@ -16,6 +22,20 @@ public class Drawer extends Transition {
     private final int width;
     private final int minus;
 
+    /**
+     * <p>Конструктор инициализирует поля отрисовщика</p>
+     *
+     * @param imageView Ссылка на объект, отображающий текстуру.
+     * @param duration Задержка между сменой кадров.
+     * @param columns Колонна текстуры.
+     * @param lines Линия текстуры.
+     * @param offsetX Сдвиг от нуля по X в пикселях.
+     * @param offsetY Сдвиг от нуля по Y в пикселях.
+     * @param width Ширина текстуры.
+     * @param height Высота текстуры.
+     * @param minus Буффер вычитаемого числа.Нужен для задания
+     *     минимального количества кадров.
+     */
     public Drawer( ImageView imageView,
             Duration duration,
             int columns, int lines,
@@ -35,6 +55,12 @@ public class Drawer extends Transition {
         setCycleDuration( duration );
     }
 
+
+    /**
+     * <p>В методе выбирается нужный фрагмент текстуры.</p>
+     *
+     * @param frac Число от 0 до 1.
+     */
     @Override
     protected void interpolate( double frac ) {
         int index = Math.min(( int ) Math.floor( frac * columns ), columns - minus );
